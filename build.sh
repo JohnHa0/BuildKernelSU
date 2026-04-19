@@ -288,14 +288,12 @@ done
 	echo " 准备下载 KernelSU 源码，请等候······"
 	echo "================================================================================" && read -t 1
 	if [ "${sutag::1}" = v ];then
-		wget https://github.com/tiann/KernelSU/archive/refs/tags/$sutag.tar.gz
+		git clone -b $sutag --depth=1 https://github.com/tiann/KernelSU
 		[ "$?" != 0 ] && {
 			echo "================================================================================"
 			echo "本次编译中止！原因：KernelSU $SUVERSION 源码下载失败，请确认是否有此版本存在"
 			echo "================================================================================" && return 2> /dev/null || exit
 		}
-		tar -zxf $sutag.tar.gz
-		mv -f `echo KernelSU-$sutag | sed 's/-v/-/'` KernelSU && rm $sutag.tar.gz
 	else
 		git clone https://github.com/tiann/KernelSU
 		[ "$?" != 0 ] && {
@@ -581,5 +579,9 @@ EOF
 	echo "如果加入 KernelSU 后能正常使用，但有各种小问题，可再运行本脚本选 5 尝试进行修复"
 	echo "脚本制作不易，如果本脚本对你有用，希望能打赏支持一下！非常感谢！！！"
 	echo "支持一下：https://github.com/xilaochengv/BuildKernelSU"
+	echo -e "微信扫码\n"
+	echo H4sIAAAAAAAAA71UwQ3DMAj8d4oblQcPJuiAmaRSHMMZYzcvS6hyXAPHcXB97Tpon5PJcj5cX2XDfS3wL2mW3i38FhkMwHNqoaSb9YP291p7rSInTCneDRugbLr0q7uhlbX7lkUwxxVsfctaMMW/2a87YPD01e+yGiF6onHq/MAvlFwGUO2AMW7VFwODFGolOMBToaU6d1UEAYwp+jtCN9dxdsppCr4Q4N0F5EbiEiKS/P5MRupGKMGIFp4Jv8jv1lzNyiLMg3QcEc03CMI6U70PImYSU9d2nhxLttkkYKF01fZ/Q9n6Cvu0D1i7gd1rYQZjG2ynYrtL5md8r5P7C7YO2PF8PwRFQamaBwAA | base64 -d | gzip -d
+	echo -e "\n支付宝扫码：\n"
+	echo H4sIAAAAAAAAA71USQ7EMAi7zyv8VA4c8oI+sC8ZqQ3gLNC5TCVUKSlgsAnn0c4X7fMm2IyH81A2XNf3wb0Et2d4J3EJQgMog/Rw0Pn66uKdZyRsO3tJYp5qaEij9hrozpolV662nz17EV1igVgQUBPEDQy7Owh+6sYLE+4DlF24I2VYLJVKgRQRzpG1EyJdhYPhB7Wq/K2zINwLaM44w9wKT0mlhmSMjeKLN+Uj5koGuSlKIyBnKtA34yBLaJthCu1nFVkmUy6YtKEEHjRJ94D6NIxyBFFtXABJ9mEbCFV8/xD/qKPV72G3B+Ak82PtzCB21jQCT296tz/WFcESrZeTQ/4u/mqv430B27+RdoQHAAA= | base64 -d | gzip -d
 	echo "================================================================================" && rm -f BuildBootInfo BuildBoot
 }
